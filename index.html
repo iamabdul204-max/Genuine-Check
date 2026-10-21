@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GenuineCheck - Product Authenticity & Brand Portal</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2563eb">
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Icons & Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- External Libraries: QR Generator, Reader & PDF Download -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body class="dark-theme">
+
+<!-- NETFLIX-STYLE CINEMATIC INTRO -->
+<div id="netflixIntro" class="netflix-intro-overlay">
+    <div class="netflix-intro-content">
+        <div class="netflix-shield-box">
+            <i class="fa-solid fa-shield-halved netflix-icon"></i>
+        </div>
+        <h1 class="netflix-logo-text">Genuine<span>Check</span></h1>
+        <div class="netflix-glow-bar"></div>
+    </div>
+</div>
+
+   <!-- TAB SWITCH TECH-SPINNER OVERLAY -->
+<div id="tabLoaderOverlay" class="tab-loader-overlay hidden">
+    <div class="glass-loader-card">
+        <div class="tech-spinner-wrapper">
+            <div class="tech-ring-outer"></div>
+            <div class="tech-ring-inner"></div>
+            <div class="tech-core"></div>
+        </div>
+        <p id="loaderText">SYSTEM AUTHENTICATING...</p>
+    </div>
+</div>
+    <header class="app-header">
+        <div class="logo">
+            <i class="fa-solid fa-shield-halved"></i>
+            <span>GenuineCheck</span>
+        </div>
+        
+        <div class="header-controls">
+            <select id="langSelect" class="control-dropdown">
+                <option value="en">English</option>
+                <option value="hi">हिन्दी</option>
+                <option value="kn">ಕನ್ನಡ</option>
+            </select>
+
+            <button id="themeToggleBtn" class="control-btn" title="Toggle Theme">
+                <i class="fa-solid fa-sun"></i>
+            </button>
+
+            <button id="installBtn" class="install-btn" style="display: none;">
+                <i class="fa-solid fa-download"></i> <span data-i18n="installApp">Install App</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-bar">
+        <button id="navHomeBtn" class="nav-btn active"><i class="fa-solid fa-house"></i> <span data-i18n="navHome">Home</span></button>
+        <button id="navVerifyBtn" class="nav-btn"><i class="fa-solid fa-qrcode"></i> <span data-i18n="navVerify">Consumer Verification</span></button>
+        <button id="navAdminBtn" class="nav-btn"><i class="fa-solid fa-chart-line"></i> <span data-i18n="navAdmin">Brand Manager</span></button>
+    </nav>
+
+    <main class="container">
+        
+        <!-- TAB 1: HOME SECTION -->
+        <section id="homeSection" class="tab-content tab-animate">
+            <div class="glass-card hero">
+                <h1 data-i18n="homeTitle">Protect Purchases with GenuineCheck</h1>
+                <p data-i18n="homeDesc">Cryptographically signed HMAC verification and anti-cloning scan engine.</p>
+                <button class="cta-btn" onclick="switchTab('verifySection')">
+                    <i class="fa-solid fa-magnifying-glass"></i> <span data-i18n="startVerify">Verify Product Now</span>
+                </button>
+            </div>
+           <!-- REAL-WORLD EVIDENCE & MARKET IMPACT CARD -->
+<div class="glass-card" style="margin-top: 2rem; border-left: 4px solid #38bdf8;">
+    <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 6px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.8px; margin-bottom: 1rem;">
+        <i class="fa-solid fa-chart-line"></i> <span data-i18n="homeImpactBadge">GLOBAL COUNTERFEIT IMPACT REPORT</span>
+    </div>
+    
+    <h3 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 0.6rem; color: var(--text-color);" data-i18n="homeImpactTitle">
+        Trust Every Scan. Protect Every Purchase.
+    </h3>
+    <p style="color: var(--subtext-color); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem;" data-i18n="homeImpactDesc">
+        One platform connecting brands and buyers through product authenticity verification. Global market studies highlight critical trade losses and trust erosion caused by sophisticated counterfeit supply chains:
+    </p>
+
+    <!-- 3 Detailed Stats Grid -->
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; text-align: center;">
+        <div style="background: rgba(11, 19, 43, 0.5); padding: 1.2rem; border-radius: 12px; border: 1px solid var(--card-border);">
+            <span style="font-size: 1.5rem; font-weight: 800; color: #ef4444; display: block; margin-bottom: 4px;">$2.8 Trillion</span>
+            <span style="font-size: 0.78rem; color: var(--subtext-color); font-weight: 600; line-height: 1.4; display: block;" data-i18n="statLossDesc">
+                Global economic loss & brand revenue drain projected by OECD & ICC research reports.
+            </span>
+        </div>
+        <div style="background: rgba(11, 19, 43, 0.5); padding: 1.2rem; border-radius: 12px; border: 1px solid var(--card-border);">
+            <span style="font-size: 1.5rem; font-weight: 800; color: #f59e0b; display: block; margin-bottom: 4px;">26% Online Risk</span>
+            <span style="font-size: 0.78rem; color: var(--subtext-color); font-weight: 600; line-height: 1.4; display: block;" data-i18n="statRiskDesc">
+                Consumers unintentionally pay full price for counterfeit goods across e-commerce channels.
+            </span>
+        </div>
+        <div style="background: rgba(11, 19, 43, 0.5); padding: 1.2rem; border-radius: 12px; border: 1px solid var(--card-border);">
+            <span style="font-size: 1.5rem; font-weight: 800; color: #10b981; display: block; margin-bottom: 4px;">100% HMAC SHA-256</span>
+            <span style="font-size: 0.78rem; color: var(--subtext-color); font-weight: 600; line-height: 1.4; display: block;" data-i18n="statTechDesc">
+                Cryptographic signature security prevents unauthorized QR code cloning and tamper attempts.
+            </span>
+        </div>
+    </div>
+</div>
+        </section>
+
+        <!-- TAB 2: CONSUMER VERIFIER SECTION -->
+        <section id="verifySection" class="tab-content hidden">
+            <div class="hero">
+                <h1 data-i18n="verifyTitle">Verify Product Authenticity</h1>
+                <p data-i18n="verifySub">Scan QR code using camera, upload image, or enter serial number.</p>
+            </div>
+      <div class="glass-card" style="margin-bottom: 1.5rem; background: rgba(67, 193, 243, 0.319) !important; border-color: rgba(16, 185, 129, 0.3) !important;">
+    <div style="display: flex; align-items: center; gap: 12px;">
+        <div style="background: #0dda95; color: #fff; width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0;">
+            <i class="fa-solid fa-user-shield"></i>
+        </div>
+        <div>
+            <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--text-color); margin-bottom: 2px;" data-i18n="consumerTagline">
+                “Before You Buy, Make Sure It's Genuine.”
+            </h3>
+            <p style="color: var(--subtext-color); font-size: 0.88rem; margin: 0;" data-i18n="consumerDesc">
+                Scan the QR code. Check the verification result. Buy with greater confidence.
+            </p>
+        </div>
+    </div>
+</div>
+            <div class="glass-card">
+                <!-- Camera Viewfinder -->
+                <div id="cameraScannerContainer" class="camera-container hidden">
+                    <video id="videoPreview" playsinline></video>
+                    <div class="scanner-overlay">
+                        <div class="scan-box"><div class="scanner-line"></div></div>
+                    </div>
+                    <button id="closeCameraBtn" class="close-cam-btn"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+
+                <div class="scanner-options">
+                    <button id="startCamBtn" class="scan-btn">
+                        <i class="fa-solid fa-camera"></i> <span data-i18n="openCamera">Scan with Camera</span>
+                    </button>
+                    
+                    <label class="scan-btn secondary-btn">
+                        <i class="fa-solid fa-image"></i> <span data-i18n="uploadQr">Upload QR Image</span>
+                        <input type="file" id="qrImageInput" accept="image/*" style="display: none;">
+                    </label>
+                </div>
+
+                <div class="divider"><span>OR</span></div>
+
+                <div class="input-group">
+                    <input type="text" id="serialInput" placeholder="Enter Serial / Token (e.g., GC-NIKE-9912)">
+                    <button id="verifyBtn"><i class="fa-solid fa-search"></i> <span data-i18n="verifyBtn">Verify</span></button>
+                </div>
+            </div>
+
+            <!-- Dynamic Result Verdict -->
+            <div id="resultCard" class="result-card hidden"></div>
+
+            <div class="history-section">
+                <h3><i class="fa-solid fa-clock-rotate-left"></i> <span data-i18n="recentVerifications">Recent Verifications</span></h3>
+                <ul id="historyList" class="history-list">
+                    <li class="empty-msg">No products verified yet.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- TAB 3: BRAND MANAGER PORTAL SECTION -->
+        <section id="adminSection" class="tab-content hidden">
+            <div class="hero">
+                <h1 data-i18n="brandTitle">Brand Management Portal</h1>
+                <p data-i18n="brandSub">Register products, generate secure QR seals, and monitor scan analytics.</p>
+            </div>
+
+            <div class="analytics-grid">
+                <div class="glass-card card-stat">
+                    <h4 data-i18n="statRegistered">Total Registered</h4>
+                    <span id="statRegistered">0</span>
+                </div>
+                <div class="glass-card card-stat">
+                    <h4 data-i18n="statScans">Total Scans</h4>
+                    <span id="statScans">0</span>
+                </div>
+                <div class="glass-card card-stat alert">
+                    <h4 data-i18n="statClones">Clones Flagged</h4>
+                    <span id="statClones">0</span>
+                </div>
+            </div>
+        <div class="glass-card" style="margin-top: 1.5rem; background: rgba(2, 132, 199, 0.15) !important; border-color: rgba(56, 189, 248, 0.3) !important;">
+    <div style="display: flex; align-items: center; gap: 12px;">
+        <div style="background: var(--accent-color); color: #fff; width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0;">
+            <i class="fa-solid fa-briefcase"></i>
+        </div>
+        <div>
+            <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--text-color); margin-bottom: 2px;" data-i18n="brandTagline">
+                “Counterfeits Hurt Your Brand. GenuineCheck Helps You Fight Back.”
+            </h3>
+            <p style="color: var(--subtext-color); font-size: 0.88rem; margin: 0;" data-i18n="brandDesc">
+                Register your brand. Secure your products. Strengthen customer trust.
+            </p>
+        </div>
+    </div>
+</div>
+
+            <!-- Registration Form (Brand Name & Product Name) -->
+            <div class="glass-card registration-card" style="margin-top: 1.5rem;">
+                <h2 data-i18n="regTitle">Product Registration & QR Generator</h2>
+                <p class="form-subtitle" data-i18n="regSub">Enter details to generate a cryptographically signed secure QR code.</p>
+                
+                <div class="reg-form-grid" style="grid-template-columns: 1fr 1fr;">
+                    <div class="form-field">
+                        <label data-i18n="lblBrand">BRAND NAME</label>
+                        <input type="text" id="regBrand" placeholder="e.g. Nike, Apple">
+                    </div>
+                    <div class="form-field">
+                        <label data-i18n="lblProduct">PRODUCT NAME</label>
+                        <input type="text" id="regProdName" placeholder="e.g. Air Jordan 1">
+                    </div>
+                </div>
+
+                <div class="form-field full-width" style="margin-top: 1rem;">
+                    <label data-i18n="lblDoc">PROOF OF REGISTRATION DOCUMENT</label>
+                    <div class="file-drop-zone">
+                        <i class="fa-regular fa-file-lines file-icon"></i>
+                        <span data-i18n="filePrompt">Click or Drag Business Certificate File</span>
+                        <input type="file" id="regFile" class="file-input-hidden">
+                        <span id="fileNameDisplay" class="file-name-badge">No file chosen</span>
+                    </div>
+                </div>
+
+                <button id="registerProdBtn" class="brand-submit-btn">
+                    <i class="fa-solid fa-shield-halved"></i> <span data-i18n="btnIssueQR">Verify License & Issue Secure QR</span>
+                </button>
+
+                <!-- Generated QR Output Area -->
+                <div id="qrResultContainer" class="qr-output-box hidden">
+                    <h3 data-i18n="qrGeneratedSuccess">Secure QR Code Generated!</h3>
+                    <div id="qrPrintArea" class="qr-print-wrapper">
+                        <div id="qrcode"></div>
+                        <p id="qrSignatureText" class="signature-text"></p>
+                    </div>
+                    <div class="qr-download-actions">
+                        <button id="downloadImageBtn" class="download-btn img-btn">
+                            <i class="fa-solid fa-file-image"></i> Download PNG Image
+                        </button>
+                        <button id="downloadPdfBtn" class="download-btn pdf-btn">
+                            <i class="fa-solid fa-file-pdf"></i> Download Printable PDF Label
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="history-section">
+                <h3><i class="fa-solid fa-list-check"></i> <span data-i18n="auditLogs">Security Audit Logs</span></h3>
+                <ul id="auditList" class="history-list">
+                    <li class="empty-msg">No audit records available.</li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="app-footer">
+        <p>&copy; 2026 GenuineCheck | 2-in-1 Web & Mobile App Authenticity Verifier</p>
+    </footer>
+
+<!-- Custom PWA Install Modal -->
+<!-- FORCE DISPLAY PWA MODAL -->
+<div id="pwa-install-modal" style="
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  align-items: center;
+  justify-content: center;
+  z-index: 999999;
+">
+  <div style="
+    background: #1e293b;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 24px;
+    border-radius: 16px;
+    max-width: 400px;
+    width: 90%;
+    color: #ffffff;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+    font-family: sans-serif;
+  ">
+    <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px;">
+      <div style="font-size: 2rem; background: rgba(2, 132, 199, 0.2); padding: 10px; border-radius: 12px;">🛡️</div>
+      <div>
+        <h3 style="margin: 0 0 4px 0; font-size: 1.2rem; color: #ffffff;">Install GenuineCheck App</h3>
+        <p style="margin: 0; font-size: 0.85rem; color: #94a3b8;">Get a faster, native app experience on your device</p>
+      </div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <button id="pwa-install-btn" style="
+        width: 100%;
+        padding: 12px;
+        background: #0284c7;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 0.95rem;
+      ">📲 Install App</button>
+      
+      <button id="pwa-continue-btn" style="
+        width: 100%;
+        padding: 12px;
+        background: transparent;
+        color: #94a3b8;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 0.95rem;
+      ">🌐 Continue with Browser</button>
+    </div>
+  </div>
+</div>
+    <script src="script.js"></script>
+
+</body>
+</html>
